@@ -8,11 +8,12 @@ dforg["Session Duration"]=(dforg["End Time"]-dforg["Start Time"]).dt.total_secon
 dforg["Session Duration"]=dforg["Session Duration"].astype(int) #converting it to int values
 dfmain=dforg.drop(["Join Time","Leave Time","Guest","Meeting ID","Topic","Start Time","End Time"],axis=1) #dropping uncessesary datas; Axis=1-coloumn
 
+#calculating minimum presence time
 minimumtime=dfmain.loc[0, "Session Duration"]
 minimumtime=round((minimumtime/100)*75)
 print("Minimum Time ",minimumtime)
-for presence in dfmain["Duration"]:
-    if presence>=minimumtime:
-        print(dfmain.loc[index])
+
+filtereddf=dfmain.loc[dfmain["Duration"]>=minimumtime]
+print(filtereddf)
     
 
