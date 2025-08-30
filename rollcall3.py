@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 dforg=pd.read_csv("sample.csv")
 #converting str->datetime
@@ -10,10 +11,10 @@ dfmain=dforg.drop(["Join Time","Leave Time","Guest","Meeting ID","Topic","Start 
 
 #calculating minimum presence time
 minimumtime=dfmain.loc[0, "Session Duration"]
-minimumtime=round((minimumtime/100)*75)
+minimumtime=round((minimumtime/100)*75) #75% attendence given
 print("Minimum Time ",minimumtime)
 
-filtereddf=dfmain.loc[dfmain["Duration"]>=minimumtime]
-print(filtereddf)
-    
+dfmain["Status"]=np.where(dfmain["Duration"] >= minimumtime,"Present","Absent") #created a present/absent coloumn
+dfmain = dfmain.dropna()    #dropping and rows with null values
+print(dfmain["User Email"])
 
