@@ -17,5 +17,5 @@ print("Minimum Time ",minimumtime)
 dfmain["Status"]=np.where(dfmain["Duration"] >= minimumtime,"Present","Absent") #created a present/absent coloumn
 dfmain = dfmain.dropna()    #dropping and rows with null values
 
-present_users = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()
+present_users = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()    #made the emails of present students into a list
 print(present_users)
