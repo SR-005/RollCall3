@@ -4,11 +4,17 @@ import os
 from dotenv import load_dotenv
 import requests
 
+#LOADING CREDENTIALS FROM .ENV
 load_dotenv()
 API_KEY = os.getenv("POAP_API_KEY")
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
+
+
+#----------------------------------------------------------------------DATA SECTION----------------------------------------------------------------------
+
+#DATA HANDLING AND PROCESSING
 dforg=pd.read_csv("sample.csv")
 #converting str->datetime
 dforg["Start Time"]=pd.to_datetime(dforg["Start Time"])
@@ -28,7 +34,13 @@ dfmain = dfmain.dropna()    #dropping and rows with null values
 present_users = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()    #made the emails of present students into a list
 print(present_users)
 
-url = "https://api.poap.tech/events"
+
+
+#----------------------------------------------------------------------API SECTION----------------------------------------------------------------------
+
+#Creating Event through API Requests
+url = "https://api.poap.tech/events"    
+#Image for Badge logo
 files = {
     "image": (
         "Screenshot%202025-08-06%20123712.png",
@@ -59,11 +71,11 @@ headers = {
 response = requests.post(url, data=payload, files=files, headers=headers)
 print(response.text)
 
+#Verifying Event Creationg - Data Fetching
 url = "https://api.poap.tech/events/id/200582"
 headers = {
     "accept": "application/json",
     "x-api-key": API_KEY
 }
 response = requests.get(url, headers=headers)
-
 print(response.text)
