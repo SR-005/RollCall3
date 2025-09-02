@@ -59,3 +59,11 @@ headers = {
 response = requests.post(url, data=payload, files=files, headers=headers)
 print(response.text)
 
+url = "https://api.poap.tech/events/id/200582"
+headers = {
+    "accept": "application/json",
+    "x-api-key": API_KEY
+}
+response = requests.get(url, headers=headers)
+
+print(response.text)
