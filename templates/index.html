@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>RollCall3</title>
 </head>
 <body>
-    <h3>Hello</h3>
+    <h1 class="rollcall text-center">RollCall3</h1>
+    <h3 class="caption text-center">where attendance meets recognition</h3>
+
+    <select class="form-select form-select-lg mb-3 w-50 mx-auto " aria-label="Large select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+    </select>
 </body>
 </html>

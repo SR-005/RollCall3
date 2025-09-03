@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "Gunken";
+  src: url("fonts/Gunken.otf") format("OpenType");
+}
+
+.rollcall{
+    font-size: 110px;
+    font-family: "Gunken", sans-serif;
+    margin-bottom: 0px;
+}
+.caption{
+    font-size: 20px;
+    font-family: "Gunken", sans-serif;
+    margin-top: 0px;
+}
