@@ -72,6 +72,7 @@ headers = {
 response = requests.post(url, data=payload, files=files, headers=headers)
 print(response.text)'''
 
+
 #Verifying Event Creationg - Data Fetching
 url = "https://api.poap.tech/events/id/200582"
 headers = {
@@ -84,22 +85,34 @@ print(response.text)
 
 #Generating Access Token
 url = "https://auth.accounts.poap.xyz/oauth/token"
+payload = {
+    "audience": "https://api.poap.tech",   
+    "grant_type": "client_credentials",
+    "client_id": CLIENT_ID,
+    "client_secret": CLIENT_SECRET
+}
+headers = {"Content-Type": "application/json"}
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+data=response.json()
+'''print("Status Code:", response.status_code)
+print("Response:", response.json())'''
+ACCESS_TOKEN=data["access_token"]
+print("Access Token:", ACCESS_TOKEN)
 
-# Try with both values
-for aud in ["https://api.poap.tech", "poap-api"]:
-    payload = {
-        "audience": aud,
-        "grant_type": "client_credentials",
-        "client_id": CLIENT_ID,
-        "client_secret": CLIENT_SECRET
-    }
 
-    headers = {"Content-Type": "application/json"}
-    response = requests.post(url, headers=headers, json=payload)
+url = "https://api.poap.tech/event/200582/qr-codes"
 
-    print("\nTesting audience:", aud)
-    print("Status Code:", response.status_code)
-    try:
-        print("Response:", response.json())
-    except:
-        print("Raw:", response.text)
+payload = {
+    "qr_codes_count": 10,        # how many mint links you want
+    "secret_code": "234789"      # must match the event's secret_code
+}
+
+headers = {
+    "Accept": "application/json",
+    "Authorization": f"Bearer {ACCESS_TOKEN}",
+    "X-API-Key": API_KEY,
+    "Content-Type": "application/json"
+}
+
+res = requests.post(url, headers=headers, json=payload)
+print(res.status_code, res.text)
