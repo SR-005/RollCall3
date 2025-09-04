@@ -12,78 +12,78 @@
     <h3 class="caption text-center">where attendance meets recognition</h3>
 
     <!-- input forums div -->
-    <div class="mt-5">
-        <!-- event name div -->
-        <div class="mb-2 w-50 mx-auto">
-            <label for="nameFormControlInput" class="form-label">Name</label>
-            <input type="name" class="form-control" id="nameFormControlInput" placeholder="Event Name">
-        </div>
-        <!-- event description div -->
-        <div class="mb-2 w-50 mx-auto">
-            <label for="exampleFormControlInput" class="form-label">Description about this event</label>
-            <div class="input-group">
-                <textarea class="form-control" aria-label="With textarea"></textarea>
+    <form id="eventForm" method="POST" action="/" enctype="multipart/form-data">
+        <div class="mt-5">
+            <!-- event name div -->
+            <div class="mb-2 w-50 mx-auto">
+                <label for="eventnameFormControlInput" class="form-label">Event Name</label>
+                <input type="text" class="form-control" name="eventname" id="eventnameFormControlInput" placeholder="Event Name">
             </div>
-        </div>
-        <!-- city and country div -->
-        <div class="citycountrydiv d-flex justify-content-center gap-1 mb-2">
-            <!-- city div -->
-            <div class="w-25">
-                <label for="cityFormControlInput" class="form-label">City</label>
-                <input type="city" class="form-control" id="cityFormControlInput" placeholder="City Name">
+            <!-- event description div -->
+            <div class="mb-2 w-50 mx-auto">
+                <label for="exampleFormControlInput" class="form-label">Description about this event</label>
+                <div class="input-group">
+                    <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
+                </div>
             </div>
-            <!-- country div -->
-            <div class="w-25">
-                <label for="countryFormControlInput" class="form-label">Country</label>
-                <input type="country" class="form-control" id="countryFormControlInput" placeholder="Country Name">
-            </div>  
-        </div>
-        <!-- start and end date div -->
-        <div class="datediv d-flex justify-content-center gap-1 mb-2">
-            <!-- start date div -->
-            <div class="w-25">
-                <label for="startdateFormControlInput" class="form-label">Start Date</label>
-                <input type="startdate" class="form-control" id="startdateFormControlInput" placeholder="MM-DD-YYYY">
+            <!-- city and country div -->
+            <div class="citycountrydiv d-flex justify-content-center gap-1 mb-2">
+                <!-- city div -->
+                <div class="w-25">
+                    <label for="cityFormControlInput" class="form-label">City</label>
+                    <input type="text" class="form-control" name="cityname" id="cityFormControlInput" placeholder="City Name">
+                </div>
+                <!-- country div -->
+                <div class="w-25">
+                    <label for="countryFormControlInput" class="form-label">Country</label>
+                    <input type="text" class="form-control" name="countryname" id="countryFormControlInput" placeholder="Country Name">
+                </div>  
             </div>
-            <!-- end date div -->
-            <div class="w-25">
-                <label for="enddateFormControlInput" class="form-label">End Date</label>
-                <input type="enddate" class="form-control" id="enddateFormControlInput" placeholder="MM-DD-YYYY">
-            </div>  
-        </div>
-        <!-- expiry date and secret code div -->
-        <div class="datediv d-flex justify-content-center gap-1 mb-2">
-            <!-- expiry date div -->
-            <div class="w-25">
-                <label for="expirydateFormControlInput" class="form-label">Expiry Date</label>
-                <input type="expirydate" class="form-control" id="expirydateFormControlInput" placeholder="MM-DD-YYYY">
+            <!-- start and end date div -->
+            <div class="datediv d-flex justify-content-center gap-1 mb-2">
+                <!-- start date div -->
+                <div class="w-25">
+                    <label for="startdateFormControlInput" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" name="startdate" id="startdateFormControlInput" placeholder="MM-DD-YYYY">
+                </div>
+                <!-- end date div -->
+                <div class="w-25">
+                    <label for="enddateFormControlInput" class="form-label">End Date</label>
+                    <input type="date" class="form-control" name="enddate" id="enddateFormControlInput" placeholder="MM-DD-YYYY">
+                </div>  
             </div>
-            <!-- secret code div -->
-            <div class="w-25">
-                <label for="secretcodeControlInput" class="form-label">Secret Code</label>
-                <input type="secretcode" class="form-control" id="secretcodeControlInput" placeholder="Secret Code">
+            <!-- expiry date and secret code div -->
+            <div class="datediv d-flex justify-content-center gap-1 mb-2">
+                <!-- expiry date div -->
+                <div class="w-25">
+                    <label for="expirydateFormControlInput" class="form-label">Expiry Date</label>
+                    <input type="date" class="form-control" name="expirydate" id="expirydateFormControlInput" placeholder="MM-DD-YYYY">
+                </div>
+                <!-- secret code div -->
+                <div class="w-25">
+                    <label for="secretcodeControlInput" class="form-label">Secret Code</label>
+                    <input type="text" class="form-control" name="secretcode" id="secretcodeControlInput" placeholder="Secret Code">
+                </div>
             </div>
-        </div>
-        <!-- email div -->
-        <div class="mb-2 w-50 mx-auto">
-            <label for="emailFormControlInput" class="form-label">Email</label>
-            <input type="email" class="form-control" id="emailFormControlInput" placeholder="example@gmail.com">
-        </div>
-        <!-- event url div -->
-        <div class="mb-2 w-50 mx-auto">
-            <label for="eventurlFormControlInput" class="form-label">Event URL</label>
-            <input type="eventurl" class="form-control" id="eventurlFormControlInput" placeholder="URL">
-        </div>
+            <!-- email div -->
+            <div class="mb-2 w-50 mx-auto">
+                <label for="emailFormControlInput" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="emailFormControlInput" placeholder="example@gmail.com">
+            </div>
+            <!-- event url div -->
+            <div class="mb-2 w-50 mx-auto">
+                <label for="eventurlFormControlInput" class="form-label">Event URL</label>
+                <input type="url" class="form-control" name="eventurl" id="eventurlFormControlInput" placeholder="URL">
+            </div>
 
-        <div class="mt-4">
-            <h5 class="text-center">Input the Zoom Report Here</h5>
-            <input class="form-control form-control-lg w-50 mx-auto" id="formFileLg" type="file">
+            <div class="mt-4">
+                <h5 class="text-center">Input the Zoom Report Here</h5>
+                <input class="form-control form-control-lg w-50 mx-auto" id="formFileLg" name="zoomreport" type="file" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">>
+            </div>
+            <div class="d-flex justify-content-center mt-3 mb-5">
+                <button class="btn btn-primary w-25" type="submit">Button</button>
+            </div>
         </div>
-        <div class="d-flex justify-content-center mt-3 mb-5">
-            <button class="btn btn-primary w-25" type="button">Button</button>
-        </div>
-    </div>
-
-
+    </form>
 </body>
 </html>
