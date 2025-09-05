@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import Flask, request, render_template
 import os
+from datetime import datetime
 from rollcall import main as rollcallfunction
 
 app=Flask(__name__)
@@ -34,6 +35,16 @@ def index():
         privateevent=request.form.get("privateevent")
         virtualevent=request.form.get("virtualevent")
         zoomreport = request.files.get("zoomreport")
+
+        startdate=datetime.strptime(startdate,"%Y-%m-%d").strftime("%m-%d-%Y")
+        enddate=datetime.strptime(enddate,"%Y-%m-%d").strftime("%m-%d-%Y")
+        expirydate=datetime.strptime(expirydate,"%Y-%m-%d").strftime("%m-%d-%Y")
+
+        if privateevent==None:
+            privateevent="false"
+        if virtualevent==None:
+            virtualevent="false"
+
         if zoomreport and zoomreport.filename != "":
             filename=zoomreport.filename.lower()
             if filename.endswith((".xls", ".xlsx", ".csv")):   
@@ -55,6 +66,7 @@ def index():
         print("Email:", email)
         print("Private Event:", privateevent)
         print("Virtual Event:", virtualevent)
+        rollcallfunction(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent,filepath)
         
     return render_template("index.html",alerts=alerts)
 

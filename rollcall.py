@@ -5,17 +5,29 @@ from dotenv import load_dotenv
 import requests
 import json
 
-def main():
+def main(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent,filepath):
     #LOADING CREDENTIALS FROM .ENV
     load_dotenv()
     API_KEY = os.getenv("POAP_API_KEY")
     CLIENT_ID = os.getenv("CLIENT_ID")
     CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
+    print("Event Name:", eventname)
+    print("Description:", description)
+    print("City:", city)
+    print("Country:", country)
+    print("Start Date:", startdate)
+    print("End Date:", enddate)
+    print("Expiry Date:", expirydate)
+    print("Secret Code:", secretcode)
+    print("Email:", email)
+    print("Private Event:", privateevent)
+    print("Virtual Event:", virtualevent)
+    print(filepath)    
     #----------------------------------------------------------------------DATA SECTION----------------------------------------------------------------------
 
     #DATA HANDLING AND PROCESSING
-    dforg=pd.read_csv("sample.csv")
+    dforg=pd.read_csv(filepath)
     print("SUCCESFULLY RECIEVED CSV FILE")
     #converting str->datetime
     dforg["Start Time"]=pd.to_datetime(dforg["Start Time"])
@@ -126,4 +138,6 @@ def main():
 
     res = requests.post(url, headers=headers, json=payload)
     print(res.status_code, res.text)
-main()
+
+if __name__ == "__main__":
+    main() 
