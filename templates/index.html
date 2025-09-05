@@ -69,15 +69,16 @@
             <div class="mb-2 w-50 mx-auto">
                 <label for="emailFormControlInput" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="emailFormControlInput" placeholder="example@gmail.com">
-            </div>
-            <!-- event url div -->
-            <div class="mb-2 w-50 mx-auto">
-                <label for="eventurlFormControlInput" class="form-label">Event URL</label>
-                <input type="url" class="form-control" name="eventurl" id="eventurlFormControlInput" placeholder="URL">
-            </div>
+            </div>       
+            <!-- upload div        -->
             <div class="mt-4">
                 <h5 class="text-center">Input the Zoom Report Here</h5>
-                <input class="form-control form-control-lg w-50 mx-auto" id="formFileLg" name="zoomreport" type="file" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">>
+                {% if alerts %}
+                    <div class="alert alert-danger w-50 mx-auto" role="alert">
+                        Invalid file type. Please upload only CSV, XLS, or XLSX reports.
+                    </div>
+                {% endif %}
+                <input class="form-control form-control-lg w-50 mx-auto" id="formFileLg" name="zoomreport" type="file" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             </div>
             <div class="d-flex justify-content-center mt-3 mb-5">
                 <button class="btn btn-primary w-25" type="submit">Generate POAP</button>

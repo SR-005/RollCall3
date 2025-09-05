@@ -1,6 +1,10 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash, redirect, url_for
+import os
+
 
 app=Flask(__name__)
+app.config["UPLOADFOLDER"]="uploads"
+
 @app.route("/",methods=["GET", "POST"])
 def index():
     eventname=None
@@ -13,6 +17,7 @@ def index():
     secretcode=None
     email=None
     eventurl=None
+    alerts=None
     if request.method=="POST":
         eventname = request.form.get("eventname")
         description = request.form.get("description")
@@ -23,8 +28,17 @@ def index():
         expirydate = request.form.get("expirydate")
         secretcode = request.form.get("secretcode")
         email = request.form.get("email")
-        eventurl = request.form.get("eventurl")
         zoomreport = request.files.get("zoomreport")
+        if zoomreport and zoomreport.filename != "":
+            filename=zoomreport.filename.lower()
+            if filename.endswith((".xls", ".xlsx", ".csv")):   
+                filepath=os.path.join(app.config["UPLOADFOLDER"], filename)
+                zoomreport.save(filepath)
+                alerts=False
+            else:
+                alerts=True
+                return render_template("index.html", alerts=alerts)
+            
         print("Event Name:", eventname)
         print("Description:", description)
         print("City:", city)
@@ -34,8 +48,8 @@ def index():
         print("Expiry Date:", expirydate)
         print("Secret Code:", secretcode)
         print("Email:", email)
-        print("Event URL:", eventurl)
-    return render_template("index.html")
+        
+    return render_template("index.html",alerts=alerts)
 
 if __name__=="__main__":
     app.run(debug=True)
