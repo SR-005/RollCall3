@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
 import os
+from . import rollcall3
 
 
 app=Flask(__name__)
@@ -48,6 +49,7 @@ def index():
         print("Expiry Date:", expirydate)
         print("Secret Code:", secretcode)
         print("Email:", email)
+
         
     return render_template("index.html",alerts=alerts)
 
