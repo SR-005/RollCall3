@@ -24,14 +24,14 @@ def vcsv():
             if filename.endswith((".xls", ".xlsx", ".csv")):   
                 filepath=os.path.join(app.config["UPLOADFOLDER"], filename)
                 zoomreport.save(filepath)
-                alerts=False
+                alerts1=False
                 fileindicator=False
             else:
-                alerts=True
+                alerts1=True
                 fileindicator=True
-                return render_template("index.html", alerts=alerts)
+                return render_template("index.html", alerts1=alerts1,fileindicator=fileindicator)
         
-    return render_template("index.html",alerts=alerts,fileindicator=fileindicator)
+    return render_template("index.html",alerts1=alerts1,fileindicator=fileindicator)
 
 @app.route("/vevent",methods=["GET", "POST"])
 def vevent():
@@ -78,9 +78,9 @@ def vevent():
                 if filename.endswith((".xls", ".xlsx", ".csv")):   
                     filepath=os.path.join(app.config["UPLOADFOLDER"], filename)
                     zoomreport.save(filepath)
-                    alerts=False
+                    alerts2=False
                 else:
-                    alerts=True
+                    alerts2=True
         except:
             pass
             
@@ -100,7 +100,7 @@ def vevent():
             reportfunction(filepath)
         apifunction(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
         
-    return render_template("index.html",alerts=alerts,fileindicator=True)
+    return render_template("index.html",alerts2=alerts2,fileindicator=True)
 
 @app.route("/externalevent",methods=["GET", "POST"])
 def externalevent():

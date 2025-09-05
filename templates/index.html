@@ -19,7 +19,7 @@
      <form id="csvForm" method="POST" action="/vcsv" enctype="multipart/form-data">
         <div class="mt-5">
             <h5 class="text-center">Input the Zoom Report Here</h5>
-            {% if alerts %}
+            {% if alerts1 %}
                 <div class="alert alert-danger w-50 mx-auto" role="alert">
                     Invalid file type. Please upload only CSV, XLS, or XLSX reports.
                 </div>
@@ -107,7 +107,7 @@
             {% if fileindicator %}
                 <div class="mt-3">
                     <h5 class="text-center">Input the Zoom Report Here</h5>
-                    {% if alerts %}
+                    {% if alerts2 %}
                         <div class="alert alert-danger w-50 mx-auto" role="alert">
                             Invalid file type. Please upload only CSV, XLS, or XLSX reports.
                         </div>
