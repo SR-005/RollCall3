@@ -1,11 +1,9 @@
-import pandas as pd
-import numpy as np
 import os
 from dotenv import load_dotenv
 import requests
 import json
 
-def main(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent,filepath):
+def main(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent):
     #LOADING CREDENTIALS FROM .ENV
     load_dotenv()
     API_KEY = os.getenv("POAP_API_KEY")
@@ -23,32 +21,6 @@ def main(eventname,description,city,country,startdate,enddate,expirydate,secretc
     print("Email:", email)
     print("Private Event:", privateevent)
     print("Virtual Event:", virtualevent)
-    print(filepath)    
-    #----------------------------------------------------------------------DATA SECTION----------------------------------------------------------------------
-
-    #DATA HANDLING AND PROCESSING
-    dforg=pd.read_csv(filepath)
-    print("SUCCESFULLY RECIEVED CSV FILE")
-    #converting str->datetime
-    dforg["Start Time"]=pd.to_datetime(dforg["Start Time"])
-    dforg["End Time"]=pd.to_datetime(dforg["End Time"])
-    dforg["Session Duration"]=(dforg["End Time"]-dforg["Start Time"]).dt.total_seconds() / 60   #calculating meeting duration and converting it to minutes
-    dforg["Session Duration"]=dforg["Session Duration"].astype(int) #converting it to int values
-    dfmain=dforg.drop(["Join Time","Leave Time","Guest","Meeting ID","Topic","Start Time","End Time"],axis=1) #dropping uncessesary datas; Axis=1-coloumn
-
-    #calculating minimum presence time
-    minimumtime=dfmain.loc[0, "Session Duration"]
-    minimumtime=round((minimumtime/100)*75) #75% attendence given
-    print("Minimum Time of Presence in Event",minimumtime)
-
-    dfmain["Status"]=np.where(dfmain["Duration"] >= minimumtime,"Present","Absent") #created a present/absent coloumn
-    dfmain = dfmain.dropna()    #dropping and rows with null values
-
-    present_users = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()    #made the emails of present students into a list
-    print(present_users)
-
-
-
     #----------------------------------------------------------------------API SECTION----------------------------------------------------------------------
 
     #Creating Event through API Requests
