@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
 import os
-from . import rollcall3
-
+from rollcall import main as rollcallfunction
 
 app=Flask(__name__)
 app.config["UPLOADFOLDER"]="uploads"
@@ -19,6 +18,9 @@ def index():
     email=None
     eventurl=None
     alerts=None
+    privateevent=None
+    virtualevent=None
+
     if request.method=="POST":
         eventname = request.form.get("eventname")
         description = request.form.get("description")
@@ -29,6 +31,8 @@ def index():
         expirydate = request.form.get("expirydate")
         secretcode = request.form.get("secretcode")
         email = request.form.get("email")
+        privateevent=request.form.get("privateevent")
+        virtualevent=request.form.get("virtualevent")
         zoomreport = request.files.get("zoomreport")
         if zoomreport and zoomreport.filename != "":
             filename=zoomreport.filename.lower()
@@ -49,7 +53,8 @@ def index():
         print("Expiry Date:", expirydate)
         print("Secret Code:", secretcode)
         print("Email:", email)
-
+        print("Private Event:", privateevent)
+        print("Virtual Event:", virtualevent)
         
     return render_template("index.html",alerts=alerts)
 

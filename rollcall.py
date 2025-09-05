@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import requests
 import json
 
-def rollcall3():
+def main():
     #LOADING CREDENTIALS FROM .ENV
     load_dotenv()
     API_KEY = os.getenv("POAP_API_KEY")
@@ -126,4 +126,4 @@ def rollcall3():
 
     res = requests.post(url, headers=headers, json=payload)
     print(res.status_code, res.text)
-rollcall3()
+main()

@@ -4,13 +4,24 @@
 }
 
 .rollcall{
-    font-size: 105px;
-    font-family: "Gunken", sans-serif;
-    margin-bottom: 0px;
+  font-size: 105px;
+  font-family: "Gunken", sans-serif;
+  margin-bottom: 0px;
 }
 .caption{
-    font-size: 18px;
-    font-family: "Gunken", sans-serif;
-    margin-top: 0px;
+  font-size: 18px;
+  font-family: "Gunken", sans-serif;
+  margin-top: 0px;
+}
+
+.big-switch{
+  width: 3rem;    /* default ~2rem */
+  height: 1.5rem; /* default ~1rem */
+  transform: scale(1.4); /* scales the whole toggle */
+  margin-right: 20px; /* adjust spacing */
+}
+
+.big-switch-label{
+  transform: scale(1.2);
 }
 

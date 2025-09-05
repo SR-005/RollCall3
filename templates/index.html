@@ -69,8 +69,22 @@
             <div class="mb-2 w-50 mx-auto">
                 <label for="emailFormControlInput" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="emailFormControlInput" placeholder="example@gmail.com">
-            </div>       
-            <!-- upload div        -->
+            </div>
+            <!-- switch div-->
+            <div class="datediv d-flex justify-content-center gap-1 mb-2 mt-4 ">
+                <!-- private event toggle -->
+                <div class="form-check form-switch me-md-5 d-flex align-items-center">
+                    <input class="form-check-input big-switch" name="privateevent" type="checkbox" role="switch" id="switchCheckChecked" checked>
+                    <label class="form-check-label big-switch-label" for="switchCheckChecked">Private Event</label>
+                </div>
+                <!-- virtual event toggle    -->
+                <div class="form-check form-switch d-flex align-items-center">
+                    <input class="form-check-input big-switch" name="virtualevent" type="checkbox" role="switch" id="switchCheckChecked" checked>
+                    <label class="form-check-label big-switch-label" for="switchCheckChecked">Virtual Event</label>
+                </div>   
+            </div>
+
+            <!-- upload div-->
             <div class="mt-4">
                 <h5 class="text-center">Input the Zoom Report Here</h5>
                 {% if alerts %}
