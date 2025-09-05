@@ -6,8 +6,30 @@ from rollcall import main as rollcallfunction
 app=Flask(__name__)
 app.config["UPLOADFOLDER"]="uploads"
 
-@app.route("/",methods=["GET", "POST"])
+@app.route("/")
 def index():
+    return render_template("index.html")
+
+@app.route("/vcsv",methods=["GET", "POST"])
+def vcsv():
+    alerts=None
+    if request.method=="POST":
+        zoomreport = request.files.get("zoomreport")
+
+        if zoomreport and zoomreport.filename != "":
+            filename=zoomreport.filename.lower()
+            if filename.endswith((".xls", ".xlsx", ".csv")):   
+                filepath=os.path.join(app.config["UPLOADFOLDER"], filename)
+                zoomreport.save(filepath)
+                alerts=False
+            else:
+                alerts=True
+                return render_template("index.html", alerts=alerts)
+        
+    return render_template("index.html",alerts=alerts)
+
+@app.route("/vevent",methods=["GET", "POST"])
+def vevent():
     eventname=None
     description=None
     city=None
@@ -18,7 +40,6 @@ def index():
     secretcode=None
     email=None
     eventurl=None
-    alerts=None
     privateevent=None
     virtualevent=None
 
@@ -34,7 +55,6 @@ def index():
         email = request.form.get("email")
         privateevent=request.form.get("privateevent")
         virtualevent=request.form.get("virtualevent")
-        zoomreport = request.files.get("zoomreport")
 
         startdate=datetime.strptime(startdate,"%Y-%m-%d").strftime("%m-%d-%Y")
         enddate=datetime.strptime(enddate,"%Y-%m-%d").strftime("%m-%d-%Y")
@@ -44,16 +64,6 @@ def index():
             privateevent="false"
         if virtualevent==None:
             virtualevent="false"
-
-        if zoomreport and zoomreport.filename != "":
-            filename=zoomreport.filename.lower()
-            if filename.endswith((".xls", ".xlsx", ".csv")):   
-                filepath=os.path.join(app.config["UPLOADFOLDER"], filename)
-                zoomreport.save(filepath)
-                alerts=False
-            else:
-                alerts=True
-                return render_template("index.html", alerts=alerts)
             
         print("Event Name:", eventname)
         print("Description:", description)
@@ -66,10 +76,9 @@ def index():
         print("Email:", email)
         print("Private Event:", privateevent)
         print("Virtual Event:", virtualevent)
-        rollcallfunction(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent,filepath)
+        rollcallfunction(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
         
-    return render_template("index.html",alerts=alerts)
-
+    return render_template("index.html")
 
 @app.route("/externalevent",methods=["GET", "POST"])
 def externalevent():
