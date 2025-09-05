@@ -34,7 +34,7 @@ def vcsv():
                 fileindicator=True
                 return render_template("index.html", alerts1=alerts1,fileindicator=fileindicator)
         eventname,startdate,enddate=reportfunction(filepath)
-        
+
         if isinstance(startdate, datetime):
             startdate = startdate.strftime("%Y-%m-%d")
         if isinstance(enddate, datetime):
@@ -57,7 +57,8 @@ def vevent():
     privateevent=None
     virtualevent=None
     filepath=None
-
+    alerts2=None
+    
     if request.method=="POST":
         eventname = request.form.get("eventname")
         description = request.form.get("description")
