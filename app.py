@@ -16,6 +16,9 @@ fileindicator=True
 def vcsv():
     alerts=None
     fileindicator=True
+    eventname=None
+    startdate=None
+    enddate=None
     if request.method=="POST":
         zoomreport = request.files.get("zoomreport")
 
@@ -30,8 +33,14 @@ def vcsv():
                 alerts1=True
                 fileindicator=True
                 return render_template("index.html", alerts1=alerts1,fileindicator=fileindicator)
+        eventname,startdate,enddate=reportfunction(filepath)
         
-    return render_template("index.html",alerts1=alerts1,fileindicator=fileindicator)
+        if isinstance(startdate, datetime):
+            startdate = startdate.strftime("%Y-%m-%d")
+        if isinstance(enddate, datetime):
+            enddate = enddate.strftime("%Y-%m-%d")
+        
+    return render_template("index.html",alerts1=alerts1,fileindicator=fileindicator,eventname=eventname,startdate=startdate,enddate=enddate)
 
 @app.route("/vevent",methods=["GET", "POST"])
 def vevent():
