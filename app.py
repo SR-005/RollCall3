@@ -7,11 +7,13 @@ from reporthandler import main as reportfunction
 app=Flask(__name__)
 app.config["UPLOADFOLDER"]="uploads"
 
+#Main Home Page
 @app.route("/")
 def index():
     return render_template("index.html",fileindicator=True)
 
-fileindicator=True
+fileindicator=True      #Indicator for whether the csv file has been recieved correctly
+#Function for 'Auto Fill' Button
 @app.route("/vcsv",methods=["GET", "POST"])
 def vcsv():
     alerts=None
@@ -22,6 +24,7 @@ def vcsv():
     if request.method=="POST":
         zoomreport = request.files.get("zoomreport")
 
+        #checks if the file recieved is csv/excel file or not
         if zoomreport and zoomreport.filename != "":
             filename=zoomreport.filename.lower()
             if filename.endswith((".xls", ".xlsx", ".csv")):   
@@ -33,8 +36,9 @@ def vcsv():
                 alerts1=True
                 fileindicator=True
                 return render_template("index.html", alerts1=alerts1,fileindicator=fileindicator)
-        eventname,startdate,enddate=reportfunction(filepath)
+        eventname,startdate,enddate=reportfunction(filepath)    #csv handling function call
 
+        #converting Start Date and End Date to formats HTML Autofill Values
         if isinstance(startdate, datetime):
             startdate = startdate.strftime("%Y-%m-%d")
         if isinstance(enddate, datetime):
@@ -42,6 +46,7 @@ def vcsv():
         
     return render_template("index.html",alerts1=alerts1,fileindicator=fileindicator,eventname=eventname,startdate=startdate,enddate=enddate)
 
+#function for 'Generate POAP' button
 @app.route("/vevent",methods=["GET", "POST"])
 def vevent():
     eventname=None
@@ -72,15 +77,18 @@ def vevent():
         privateevent=request.form.get("privateevent")
         virtualevent=request.form.get("virtualevent")
 
+        #Converting Start Date, End Date and Expiry Date to formats required for POAP API call
         startdate=datetime.strptime(startdate,"%Y-%m-%d").strftime("%m-%d-%Y")
         enddate=datetime.strptime(enddate,"%Y-%m-%d").strftime("%m-%d-%Y")
         expirydate=datetime.strptime(expirydate,"%Y-%m-%d").strftime("%m-%d-%Y")
 
+        #Clearing of Null values
         if privateevent==None:
             privateevent="false"
         if virtualevent==None:
             virtualevent="false"
 
+        #If user enters the details manually
         try:
             zoomreport = request.files.get("zoomreport2")
             if zoomreport and zoomreport.filename != "":
@@ -112,6 +120,7 @@ def vevent():
         
     return render_template("index.html",alerts2=alerts2,fileindicator=True)
 
+#Function for External Events Page
 @app.route("/externalevent",methods=["GET", "POST"])
 def externalevent():
     alerts=None

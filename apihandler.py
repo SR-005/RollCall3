@@ -97,8 +97,8 @@ def main(eventname,description,city,country,startdate,enddate,expirydate,secretc
     url = "https://api.poap.tech/event/200582/qr-codes"
 
     payload = {
-        "qr_codes_count": 10,        # how many mint links you want
-        "secret_code": "234789"      # must match the event's secret_code
+        "qr_codes_count": 10,        
+        "secret_code": "234789"      
     }
 
     headers = {

@@ -20,24 +20,22 @@ def main(filepath):
     #calculating minimum presence time
     minimumtime=dfmain.loc[0, "Session Duration"]
     minimumtime=round((minimumtime/100)*75) #75% attendence given
-    print("Minimum Time of Presence in Event",minimumtime)
+    '''print("Minimum Time of Presence in Event",minimumtime)'''
 
+    #Getting Topic ,Start Date and End Date
     eventname=dfmain.loc[0, "Topic"]
     startdate=dfmain.loc[0, "Start Time"]
     enddate=dfmain.loc[0, "End Time"]
     
+    #Converting Start Date and End Date to Required Format
     startdate = startdate.strftime("%Y-%m-%d")
     enddate = enddate.strftime("%Y-%m-%d")
-
-    print(eventname)
-    print(type(startdate))
-    print(enddate)
 
     dfmain["Status"]=np.where(dfmain["Duration"] >= minimumtime,"Present","Absent") #created a present/absent coloumn
     dfmain = dfmain.dropna()    #dropping and rows with null values
 
     present_users = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()    #made the emails of present students into a list
-    print(present_users)
+    print("Emails of Preset Attendees: ", present_users)
 
     return eventname,startdate,enddate
 
