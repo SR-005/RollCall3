@@ -123,8 +123,73 @@ def vevent():
 #Function for External Events Page
 @app.route("/externalevent",methods=["GET", "POST"])
 def externalevent():
-    alerts=None
-    return render_template("externalevent.html",alerts=alerts)
+    alerts3=None
+    eventname=None
+    description=None
+    city=None
+    country=None
+    startdate=None
+    enddate=None
+    expirydate=None
+    secretcode=None
+    email=None
+    eventurl=None
+    privateevent=None
+    virtualevent=None
+    filepath=None
+
+    if request.method=="POST":
+        eventname = request.form.get("eventname")
+        description = request.form.get("description")
+        city = request.form.get("cityname")
+        country = request.form.get("countryname")
+        startdate = request.form.get("startdate")
+        enddate = request.form.get("enddate")
+        expirydate = request.form.get("expirydate")
+        secretcode = request.form.get("secretcode")
+        email = request.form.get("email")
+        privateevent=request.form.get("privateevent")
+        virtualevent=request.form.get("virtualevent")
+
+        #Converting Start Date, End Date and Expiry Date to formats required for POAP API call
+        startdate=datetime.strptime(startdate,"%Y-%m-%d").strftime("%m-%d-%Y")
+        enddate=datetime.strptime(enddate,"%Y-%m-%d").strftime("%m-%d-%Y")
+        expirydate=datetime.strptime(expirydate,"%Y-%m-%d").strftime("%m-%d-%Y")
+
+        #Clearing of Null values
+        if privateevent==None:
+            privateevent="false"
+        if virtualevent==None:
+            virtualevent="false"
+
+
+        zoomreport = request.files.get("zoomreport2")
+        if zoomreport and zoomreport.filename != "":
+            filename=zoomreport.filename.lower()
+            if filename.endswith((".xls", ".xlsx", ".csv")):   
+                filepath=os.path.join(app.config["UPLOADFOLDER"], filename)
+                zoomreport.save(filepath)
+                alerts3=False
+            else:
+                alerts3=True
+
+            
+        print("Event Name:", eventname)
+        print("Description:", description)
+        print("City:", city)
+        print("Country:", country)
+        print("Start Date:", startdate)
+        print("End Date:", enddate)
+        print("Expiry Date:", expirydate)
+        print("Secret Code:", secretcode)
+        print("Email:", email)
+        print("Private Event:", privateevent)
+        print("Virtual Event:", virtualevent)
+        print("Filepath: ",filepath)
+        reportfunction(filepath)
+        apifunction(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
+
+    return render_template("externalevent.html",alerts3=alerts3)
 
 
 
