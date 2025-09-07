@@ -49,6 +49,7 @@ def vcsv():
 #function for 'Generate POAP' button
 @app.route("/vevent",methods=["GET", "POST"])
 def vevent():
+    eventid=None
     eventname=None
     description=None
     iconpath=None
@@ -131,14 +132,15 @@ def vevent():
         print("Filepath: ",filepath)
         if filepath!=None:
             reportfunction(filepath)
-        apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
+        eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
         
-    return render_template("index.html",alerts2=alerts2,iconalert=iconalert,fileindicator=True)
+    return render_template("index.html",alerts2=alerts2,iconalert=iconalert,fileindicator=True,eventid=eventid,secretcode=secretcode)
 
 #Function for External Events Page
 @app.route("/externalevent",methods=["GET", "POST"])
 def externalevent():
     alerts3=None
+    eventid=None
     eventname=None
     description=None
     city=None
@@ -214,7 +216,7 @@ def externalevent():
         print("Virtual Event:", virtualevent)
         print("Filepath: ",filepath)
         reportfunction(filepath)
-        apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
+        eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
 
     return render_template("externalevent.html",alerts3=alerts3)
 
