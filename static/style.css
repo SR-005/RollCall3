@@ -45,7 +45,17 @@
 
 .detailscard{
   max-width: 400px;
+  margin-right: 10px;
+  margin-bottom: 30px;
+}
+.detailscard-body{
+  height:230px;
+}
+.detailscardfooter
+{
+  margin-bottom: 0px;
 }
 .urlcard{
   max-width: 400px;
+  margin-bottom: 30px;
 }

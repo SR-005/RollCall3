@@ -141,30 +141,35 @@
             <div class="card-header bg-primary text-white">
                 🎟️ Event Credentials
             </div>
-            <div class="card-body">
+            <div class="detailscard-body mt-4">
                 <h5 class="card-title">Event ID</h5>
                 <p class="card-text display-6 fw-bold">{{ eventid }}</p>
                 <hr>
                 <h5 class="card-title">Secret Code</h5>
-                <p class="card-text display-6 fw-bold text-danger">{{ secretcode }}</p>
+                <p class="card-text display-6 fw-bold text-danger ">{{ secretcode }}</p>
             </div>
-            <div class="card-footer text-muted">
+            <div class="card-footer text-muted detailscardfooter">
                 These Credentials have been mailed to above given mail. You can use these to check the status of your POAP Drop
             </div>
         </div>
         <!-- URL Card -->
-        <div class="card text-center shadow-sm mt-4 urlcard">
+        <div class="card text-center shadow-sm mt-3 urlcard">
             <div class="card-header bg-success text-white">
                 🚀 Next Step
             </div>
-            <div class="card-body">
+            <div class="urlcard-body mt-2">
                 <h5 class="card-title">Request Mint Links</h5>
                 <p class="card-text">
-                To request mint links for your event, please go to the official POAP dashboard.
+                    To request mint links for your event, please go to the official POAP dashboard.
                 </p>
-                <a href="https://app.poap.xyz/admin/events/{{ eventid }}" 
-                class="btn btn-success" target="_blank">
+                <a href="https://drops.poap.xyz" 
+                class="btn btn-success mb-2" target="_blank">
                 Open POAP Dashboard
+                </a>
+                <hr>
+                <p class="card-text">❓ If you have any confusion, check our help guide:</p>
+                <a href="/help" class="btn btn-outline-primary mb-3">
+                    Go to Help Page
                 </a>
             </div>
             <div class="card-footer text-muted">
