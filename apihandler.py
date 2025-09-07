@@ -4,13 +4,25 @@ import requests
 import json
 from mailautomation import main as sendmail
 
-def main():
+def main(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent):
     #LOADING CREDENTIALS FROM .ENV
     load_dotenv()
     API_KEY = os.getenv("POAP_API_KEY")
     CLIENT_ID = os.getenv("CLIENT_ID")
     CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
+    print("Event Name:", eventname)
+    print("Description:", description)
+    print("Icon Path: ",iconpath)
+    print("City:", city)
+    print("Country:", country)
+    print("Start Date:", startdate)
+    print("End Date:", enddate)
+    print("Expiry Date:", expirydate)
+    print("Secret Code:", secretcode)
+    print("Email:", email)
+    print("Private Event:", privateevent)
+    print("Virtual Event:", virtualevent)
     #----------------------------------------------------------------------API SECTION----------------------------------------------------------------------
 
     #Creating Event through API Requests
@@ -59,12 +71,14 @@ def main():
     response = requests.get(url, headers=headers)
     if response.status_code==200:
         print("Event Creation Verified Succesfully")
-        sendmail("sarchhh5424@gmail.com",2005,2005)
+        eventdata = response.json()
+        eventid = eventdata.get("id")
+        sendmail(email,eventid,secretcode)
     else:
         print(response.text)
 
 
-    #Generating Access Token
+    '''#Generating Access Token
     url = "https://auth.accounts.poap.xyz/oauth/token"
     payload = {
         "audience": "https://api.poap.tech",   
@@ -75,14 +89,14 @@ def main():
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, headers=headers, data=json.dumps(payload))
     data=response.json()
-    '''print("Status Code:", response.status_code)
-    print("Response:", response.json())'''
+    ''''''print("Status Code:", response.status_code)
+    print("Response:", response.json())''''''
     ACCESS_TOKEN=data["access_token"]
     if ACCESS_TOKEN!=None:
         print("Access Token Generated Successfully")
     else:
         print("Error in Generating Access Token")
-    '''print("Access Token:", ACCESS_TOKEN)'''
+    ''''''print("Access Token:", ACCESS_TOKEN)''''''
 
 
     url = "https://api.poap.tech/event/200582/qr-codes"
@@ -100,7 +114,7 @@ def main():
     }
 
     res = requests.post(url, headers=headers, json=payload)
-    print(res.status_code, res.text)
+    print(res.status_code, res.text)'''
 
 if __name__ == "__main__":
     main() 
