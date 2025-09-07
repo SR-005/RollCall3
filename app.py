@@ -2,7 +2,9 @@ from flask import Flask, request, render_template
 import os
 from datetime import datetime
 from apihandler import main as apifunction
+from apihandler import mintlinkgeneration as mintlinkgeneration
 from reporthandler import main as reportfunction
+
 
 app=Flask(__name__)
 app.config["UPLOADFOLDER"]="uploads"
@@ -222,6 +224,18 @@ def externalevent():
 
 @app.route("/help")
 def helppage():
+    return render_template("help.html")
+
+@app.route("/search",methods=["GET", "POST"])
+def search():
+    eventid=None
+    secretcode=None
+    
+    if request.method=="POST":
+        eventid=request.form.get("eventid")
+        secretcode=request.form.get("secretcode")
+        mintlinkgeneration(eventid,secretcode)
+
     return render_template("help.html")
 
 

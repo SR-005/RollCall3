@@ -81,7 +81,7 @@ def main(eventname,description,iconpath,city,country,startdate,enddate,expirydat
     return eventid,secretcode
 
 
-def mintlinkgeneration():
+def mintlinkgeneration(eventid,secretcode):
     #Generating Access Token
     url = "https://auth.accounts.poap.xyz/oauth/token"
     payload = {
