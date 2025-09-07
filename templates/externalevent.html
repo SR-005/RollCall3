@@ -30,6 +30,17 @@
                     <textarea class="form-control" name="description" aria-label="With textarea"></textarea>
                 </div>
             </div>
+            <div class="mb-2 w-50 mx-auto">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">POAP Icon</label>
+                    {% if iconalert %}
+                        <div class="alert alert-danger w-100 mx-auto" role="alert">
+                            Invalid file type. Please upload only PNG or JPG files.
+                        </div>
+                    {% endif %}
+                    <input class="form-control" type="file" id="formFile" name="icon" type="file" accept=".jpg, .png">
+                </div>
+            </div>
             <!-- city and country div -->
             <div class="citycountrydiv d-flex justify-content-center gap-1 mb-2">
                 <!-- city div -->

@@ -51,6 +51,7 @@ def vcsv():
 def vevent():
     eventname=None
     description=None
+    iconpath=None
     city=None
     country=None
     startdate=None
@@ -63,10 +64,12 @@ def vevent():
     virtualevent=None
     filepath=None
     alerts2=None
+    iconalert=None
     
     if request.method=="POST":
         eventname = request.form.get("eventname")
         description = request.form.get("description")
+        icon=request.files.get("icon")
         city = request.form.get("cityname")
         country = request.form.get("countryname")
         startdate = request.form.get("startdate")
@@ -76,6 +79,16 @@ def vevent():
         email = request.form.get("email")
         privateevent=request.form.get("privateevent")
         virtualevent=request.form.get("virtualevent")
+
+        if icon and icon.filename!="":
+            iconname=icon.filename.lower()
+            if iconname.endswith((".jpg", ".png")):
+                iconpath=os.path.join(app.config["UPLOADFOLDER"], iconname)
+                icon.save(iconpath)
+                iconalert=False
+            else:
+                iconalert=True
+                return render_template("index.html",alerts2=alerts2,iconalert=iconalert,fileindicator=True)
 
         #Converting Start Date, End Date and Expiry Date to formats required for POAP API call
         startdate=datetime.strptime(startdate,"%Y-%m-%d").strftime("%m-%d-%Y")
@@ -99,11 +112,13 @@ def vevent():
                     alerts2=False
                 else:
                     alerts2=True
+                    
         except:
             pass
             
         print("Event Name:", eventname)
         print("Description:", description)
+        print("Icon Path: ", iconpath)
         print("City:", city)
         print("Country:", country)
         print("Start Date:", startdate)
@@ -118,7 +133,7 @@ def vevent():
             reportfunction(filepath)
         apifunction(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
         
-    return render_template("index.html",alerts2=alerts2,fileindicator=True)
+    return render_template("index.html",alerts2=alerts2,iconalert=iconalert,fileindicator=True)
 
 #Function for External Events Page
 @app.route("/externalevent",methods=["GET", "POST"])
@@ -137,10 +152,12 @@ def externalevent():
     privateevent=None
     virtualevent=None
     filepath=None
+    iconalert=None
 
     if request.method=="POST":
         eventname = request.form.get("eventname")
         description = request.form.get("description")
+        icon=request.files.get("icon")
         city = request.form.get("cityname")
         country = request.form.get("countryname")
         startdate = request.form.get("startdate")
@@ -150,6 +167,16 @@ def externalevent():
         email = request.form.get("email")
         privateevent=request.form.get("privateevent")
         virtualevent=request.form.get("virtualevent")
+
+        if icon and icon.filename!="":
+            iconname=icon.filename.lower()
+            if iconname.endswith((".jpg", ".png")):
+                iconpath=os.path.join(app.config["UPLOADFOLDER"], iconname)
+                icon.save(iconpath)
+                iconalert=False
+            else:
+                iconalert=True
+                return render_template("index.html",alerts3=alerts3,iconalert=iconalert)
 
         #Converting Start Date, End Date and Expiry Date to formats required for POAP API call
         startdate=datetime.strptime(startdate,"%Y-%m-%d").strftime("%m-%d-%Y")
