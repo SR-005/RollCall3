@@ -220,6 +220,9 @@ def externalevent():
 
     return render_template("externalevent.html",alerts3=alerts3)
 
+@app.route("/help")
+def helppage():
+    return render_template("help.html")
 
 
 if __name__=="__main__":
