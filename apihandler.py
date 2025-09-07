@@ -2,25 +2,15 @@ import os
 from dotenv import load_dotenv
 import requests
 import json
+from mailautomation import main as sendmail
 
-def main(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent):
+def main():
     #LOADING CREDENTIALS FROM .ENV
     load_dotenv()
     API_KEY = os.getenv("POAP_API_KEY")
     CLIENT_ID = os.getenv("CLIENT_ID")
     CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
-    print("Event Name:", eventname)
-    print("Description:", description)
-    print("City:", city)
-    print("Country:", country)
-    print("Start Date:", startdate)
-    print("End Date:", enddate)
-    print("Expiry Date:", expirydate)
-    print("Secret Code:", secretcode)
-    print("Email:", email)
-    print("Private Event:", privateevent)
-    print("Virtual Event:", virtualevent)
     #----------------------------------------------------------------------API SECTION----------------------------------------------------------------------
 
     #Creating Event through API Requests
@@ -69,6 +59,7 @@ def main(eventname,description,city,country,startdate,enddate,expirydate,secretc
     response = requests.get(url, headers=headers)
     if response.status_code==200:
         print("Event Creation Verified Succesfully")
+        sendmail("sarchhh5424@gmail.com",2005,2005)
     else:
         print(response.text)
 

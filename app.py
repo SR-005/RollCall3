@@ -131,7 +131,7 @@ def vevent():
         print("Filepath: ",filepath)
         if filepath!=None:
             reportfunction(filepath)
-        apifunction(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
+        apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
         
     return render_template("index.html",alerts2=alerts2,iconalert=iconalert,fileindicator=True)
 
@@ -214,7 +214,7 @@ def externalevent():
         print("Virtual Event:", virtualevent)
         print("Filepath: ",filepath)
         reportfunction(filepath)
-        apifunction(eventname,description,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
+        apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
 
     return render_template("externalevent.html",alerts3=alerts3)
 
