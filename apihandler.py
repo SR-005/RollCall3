@@ -74,7 +74,7 @@ def main(eventname,description,iconpath,city,country,startdate,enddate,expirydat
         print("Event Creation Verified Succesfully")
         eventdata = response.json()
         eventid = eventdata.get("id")
-        sendmail(email,eventid,secretcode)
+        '''sendmail(email,eventid,secretcode)'''
     else:
         print(response.text)
 

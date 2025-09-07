@@ -43,3 +43,9 @@
   transform: scale(1.2);
 }
 
+.detailscard{
+  max-width: 400px;
+}
+.urlcard{
+  max-width: 400px;
+}

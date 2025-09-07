@@ -133,5 +133,49 @@
             </div>
         </div>
     </form>
+
+    {% if eventid %}
+    <div class="d-flex justify-content-center">
+        <!-- details card -->
+        <div class="card text-center shadow-sm mt-3 detailscard">
+            <div class="card-header bg-primary text-white">
+                🎟️ Event Credentials
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Event ID</h5>
+                <p class="card-text display-6 fw-bold">{{ eventid }}</p>
+                <hr>
+                <h5 class="card-title">Secret Code</h5>
+                <p class="card-text display-6 fw-bold text-danger">{{ secretcode }}</p>
+            </div>
+            <div class="card-footer text-muted">
+                These Credentials have been mailed to above given mail. You can use these to check the status of your POAP Drop
+            </div>
+        </div>
+        <!-- URL Card -->
+        <div class="card text-center shadow-sm mt-4 urlcard">
+            <div class="card-header bg-success text-white">
+                🚀 Next Step
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Request Mint Links</h5>
+                <p class="card-text">
+                To request mint links for your event, please go to the official POAP dashboard.
+                </p>
+                <a href="https://app.poap.xyz/admin/events/{{ eventid }}" 
+                class="btn btn-success" target="_blank">
+                Open POAP Dashboard
+                </a>
+            </div>
+            <div class="card-footer text-muted">
+                Use your Event ID <strong>{{ eventid }}</strong> and Secret Code to continue.
+            </div>
+        </div>
+        
+    </div>
+
+    {% endif %}
+
+
 </body>
 </html>
