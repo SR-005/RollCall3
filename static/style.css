@@ -55,6 +55,16 @@
 {
   margin-bottom: 0px;
 }
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
 .urlcard{
   max-width: 400px;
   margin-bottom: 30px;
