@@ -39,18 +39,17 @@ def main(eventname,description,iconpath,city,country,startdate,enddate,expirydat
     payload = {
         "virtual_event": "false",
         "event_template_id": "1",
-        "private_event": "false",
+        "private_event": privateevent,
         "notify_issuer": "true",
-        "name": "Example Event 202",
-        "description": "This is an example event",
-        "city": "Buenos Aires",
-        "country": "Argentina",
-        "start_date": "10-09-2025",
-        "end_date": "12-09-2025",
-        "expiry_date": "12-09-2025",
-        "event_url": "https://poap.xyz",
+        "name": eventname,
+        "description": description,
+        "city": city,
+        "country": country,
+        "start_date": startdate,
+        "end_date": enddate,
+        "expiry_date": expirydate,
         "email": "test@example.com",
-        "secret_code": "234789"
+        "secret_code": secretcode
     }
     headers = {
         "accept": "application/json",
