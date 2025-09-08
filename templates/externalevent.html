@@ -114,5 +114,90 @@
             </div>
         </div>
     </form>
+
+    <!-- verification tiles -->
+    {% if eventid %}
+    <div class="d-flex justify-content-center">
+        <!-- details card -->
+        <div class="card text-center shadow-sm mt-3 detailscard hover-card">
+            <div class="card-header bg-primary text-white">
+                Event Credentials
+            </div>
+            <div class="detailscard-body mt-4">
+                <h5 class="card-title">Event ID</h5>
+                <p class="card-text display-6 fw-bold">{{ eventid }}</p>
+                <hr>
+                <h5 class="card-title">Secret Code</h5>
+                <p class="card-text display-6 fw-bold text-danger ">{{ secretcode }}</p>
+            </div>
+            <div class="card-footer text-muted detailscardfooter">
+                These Credentials have been mailed to above given mail. You can use these to check the status of your POAP Drop
+            </div>
+        </div>
+        <!-- URL Card -->
+        <div class="card text-center shadow-sm mt-3 urlcard hover-card">
+            <div class="card-header bg-success text-white">
+                Next Step
+            </div>
+            <div class="urlcard-body mt-2">
+                <h5 class="card-title">Request Mint Links</h5>
+                <p class="card-text">
+                    To request mint links for your event, please go to the official POAP dashboard.
+                </p>
+                <a href="https://drops.poap.xyz" 
+                class="btn btn-success mb-2" target="_blank">
+                Open POAP Dashboard
+                </a>
+                <hr>
+                <p class="card-text">If you have any confusion, check our help guide:</p>
+                <a href="/help" class="btn btn-outline-primary mb-3">
+                    Go to Help Page
+                </a>
+            </div>
+            <div class="card-footer text-muted">
+                Use your Event ID <strong>{{ eventid }}</strong> and Secret Code to continue.
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+    <h2 class="ortext text-center">OR</h2>
+    <h5 class="text-center mt-5 mb-4">Check the Status of your Event</h5>
+        {% if status is not none %}
+        {% if status==0 %}
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-warning text-center w-50">
+                    Your drop is still <strong>pending approval</strong>
+                </div>
+            </div>
+        {% elif status==1 %}
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success text-center w-50">
+                    Your drop has been <strong>approved</strong>! You can now request mint links.
+                </div>
+                <button class="btn btn-primary w-25" type="submit">Request Mint Links</button>
+            </div>
+        {% endif %}
+    {% endif %}
+    <form action="/search", method="POST">
+          <div>
+            <div class="datediv d-flex justify-content-center gap-1 mb-2">
+                <!-- event id div -->
+                <div class="w-25">
+                    <label for="eventidControlInput" class="form-label">Event ID</label>
+                    <input type="text" class="form-control" name="eventid" id="eventidControlInput" placeholder="Event ID">
+                </div>
+                <!-- secret code div -->
+                <div class="w-25">
+                    <label for="secretcodeControlInput" class="form-label">Secret Code</label>
+                    <input type="text" class="form-control" name="secretcode" id="secretcodeControlInput" placeholder="Secret Code">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3 mb-5">
+                <button class="btn btn-primary w-25" type="submit">Check Status</button>
+            </div>
+        </div>  
+    </form>
 </body>
 </html>
