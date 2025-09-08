@@ -220,7 +220,7 @@ def externalevent():
         reportfunction(filepath)
         eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
 
-    return render_template("externalevent.html",alerts3=alerts3)
+    return render_template("externalevent.html",alerts3=alerts3,eventid=eventid,secretcode=secretcode)
 
 @app.route("/help")
 def helppage():

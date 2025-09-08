@@ -4,13 +4,11 @@
 }
 
 .rollcallv{
-  margin-left: 140px;
   font-size: 105px;
   font-family: "Gunken", sans-serif;
   margin-bottom: 0px;
 }
 .rollcalle{
-  margin-left: 140px;
   font-size: 105px;
   font-family: "Gunken", sans-serif;
   margin-bottom: 0px;
@@ -23,9 +21,15 @@
 
 .event-button{
   margin-top: 35px;
-  margin-right: 40px;
+  margin-left: 20px;
   height: 63px;
-  width: 100px
+  width: 100px;
+}
+.help-button{
+  margin-right: 20px;
+  margin-top: 35px;
+  height: 47px;
+  width: 100px;
 }
 
 .csvbutton{
