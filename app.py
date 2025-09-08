@@ -230,13 +230,14 @@ def helppage():
 def search():
     eventid=None
     secretcode=None
+    status=None
     
     if request.method=="POST":
         eventid=request.form.get("eventid")
         secretcode=request.form.get("secretcode")
-        mintlinkgeneration(eventid,secretcode)
+        status=mintlinkgeneration(eventid,secretcode)
 
-    return render_template("help.html")
+    return render_template("index.html",status=status)
 
 
 if __name__=="__main__":

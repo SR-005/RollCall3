@@ -183,7 +183,23 @@
     
     <h2 class="ortext text-center">OR</h2>
     <h5 class="text-center mt-5 mb-4">Check the Status of your Event</h5>
-    <form action="/search">
+        {% if status is not none %}
+        {% if status==0 %}
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-warning text-center w-50">
+                    Your drop is still <strong>pending approval</strong>
+                </div>
+            </div>
+        {% elif status==1 %}
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success text-center w-50">
+                    Your drop has been <strong>approved</strong>! You can now request mint links.
+                </div>
+                <button class="btn btn-primary w-25" type="submit">Request Mint Links</button>
+            </div>
+        {% endif %}
+    {% endif %}
+    <form action="/search", method="POST">
           <div>
             <div class="datediv d-flex justify-content-center gap-1 mb-2">
                 <!-- event id div -->

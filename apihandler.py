@@ -93,8 +93,6 @@ def mintlinkgeneration(eventid,secretcode):
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, headers=headers, data=json.dumps(payload))
     data=response.json()
-    '''print("Status Code:", response.status_code)
-    print("Response:", response.json())'''
     ACCESS_TOKEN=data["access_token"]
     if ACCESS_TOKEN!=None:
         print("Access Token Generated Successfully")
@@ -119,6 +117,11 @@ def mintlinkgeneration(eventid,secretcode):
 
     res = requests.post(url, headers=headers, json=payload)
     print(res.status_code, res.text)
+    if res.status_code==200 and res.text!="[]":
+        status=1
+    else:
+        status=0
+    return status
 
 if __name__ == "__main__":
-    main() 
+    mintlinkgeneration(200582,234789)
