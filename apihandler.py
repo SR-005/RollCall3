@@ -31,9 +31,9 @@ def main(eventname,description,iconpath,city,country,startdate,enddate,expirydat
     #Image for Badge logo
     files = {
         "image": (
-            "Screenshot%202025-08-06%20123712.png",
-            open("C:/Users/sreer/Downloads/Screenshot 2025-08-06 123712.png", "rb"),
-            "image/png"
+            os.path.basename(iconpath),   
+            open(iconpath, "rb"),        
+            "image/png" if iconpath.lower().endswith(".png") else "image/jpg"
         )
     }
     payload = {
@@ -48,7 +48,7 @@ def main(eventname,description,iconpath,city,country,startdate,enddate,expirydat
         "start_date": startdate,
         "end_date": enddate,
         "expiry_date": expirydate,
-        "email": "test@example.com",
+        "email": email,
         "secret_code": secretcode
     }
     headers = {
@@ -57,13 +57,15 @@ def main(eventname,description,iconpath,city,country,startdate,enddate,expirydat
     }
     response = requests.post(url, data=payload, files=files, headers=headers)
     if response.status_code==200:
+        eventdata=response.json()   
+        eventid=eventdata.get("id")   
         print("Event Created Succesfully")
     else:
         print(response.text)
 
 
     #Verifying Event Creationg - Data Fetching
-    url = "https://api.poap.tech/events/id/200582"
+    url = f"https://api.poap.tech/events/id/{eventid}"
     headers = {
         "accept": "application/json",
         "x-api-key": API_KEY
@@ -71,9 +73,7 @@ def main(eventname,description,iconpath,city,country,startdate,enddate,expirydat
     response = requests.get(url, headers=headers)
     if response.status_code==200:
         print("Event Creation Verified Succesfully")
-        eventdata = response.json()
-        eventid = eventdata.get("id")
-        '''sendmail(email,eventid,secretcode)'''
+        sendmail(email,eventid,secretcode)
     else:
         print(response.text)
 
@@ -100,11 +100,11 @@ def mintlinkgeneration(eventid,secretcode):
     '''print("Access Token:", ACCESS_TOKEN)'''
 
 
-    url = "https://api.poap.tech/event/200582/qr-codes"
+    url = f"https://api.poap.tech/event/{eventid}/qr-codes"
 
     payload = {
         "qr_codes_count": 10,        
-        "secret_code": "234789"      
+        "secret_code": secretcode      
     }
 
     headers = {
