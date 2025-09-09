@@ -37,10 +37,10 @@
 }
 
 .big-switch{
-  width: 3rem;    /* default ~2rem */
-  height: 1.5rem; /* default ~1rem */
-  transform: scale(1.4); /* scales the whole toggle */
-  margin-right: 20px; /* adjust spacing */
+  width: 3rem;    
+  height: 1.5rem; 
+  transform: scale(1.4); 
+  margin-right: 20px; 
 }
 
 .big-switch-label{
@@ -72,4 +72,9 @@
 .urlcard{
   max-width: 400px;
   margin-bottom: 30px;
+}
+
+.mintlinkbutton{
+  height: 40px;
+  margin-left: 5px;
 }
