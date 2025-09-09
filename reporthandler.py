@@ -16,6 +16,7 @@ def main(filepath):
     dforg["Session Duration"]=(dforg["End Time"]-dforg["Start Time"]).dt.total_seconds() / 60   #calculating meeting duration and converting it to minutes
     dforg["Session Duration"]=dforg["Session Duration"].astype(int) #converting it to int values
     dfmain=dforg.drop(["Join Time","Leave Time","Guest"],axis=1) #dropping uncessesary datas; Axis=1-coloumn
+    print(dfmain)
 
     #calculating minimum presence time
     minimumtime=dfmain.loc[0, "Session Duration"]
@@ -34,11 +35,13 @@ def main(filepath):
     dfmain["Status"]=np.where(dfmain["Duration"] >= minimumtime,"Present","Absent") #created a present/absent coloumn
     dfmain = dfmain.dropna()    #dropping and rows with null values
 
-    present_users = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()    #made the emails of present students into a list
-    print("Emails of Preset Attendees: ", present_users)
+    presentusermails = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()    #made the emails of present students into a list
+    presentusers = dfmain[dfmain["Status"] == "Present"]["Participant Name"].tolist()
 
-    return eventname,startdate,enddate
+    verifiedmails=dict(zip(presentusers,presentusermails))  #converting to dictionary
+    print(verifiedmails)
 
+    return eventname,startdate,enddate,verifiedmails
 
 if __name__ == "__main__":
     main("sample.csv") 

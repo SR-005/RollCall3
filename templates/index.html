@@ -196,7 +196,9 @@
                 <div class="alert alert-success text-center w-50">
                     Your drop has been <strong>approved</strong>! You can now request mint links.
                 </div>
-                <button class="btn btn-primary mintlinkbutton mt-2" type="submit">Send Links</button>
+                <form action="/sendlinks" method="POST">
+                    <button class="btn btn-primary mintlinkbutton mt-2" type="submit">Send Links</button>
+                </form>
             </div>
         {% endif %}
     {% endif %}

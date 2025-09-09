@@ -115,12 +115,22 @@ def mintlinkgeneration(eventid,secretcode):
     }
 
     res = requests.post(url, headers=headers, json=payload)
-    print(res.status_code, res.text)
+    print(res.status_code, res)
     if res.status_code==200 and res.text!="[]":
+        claimlinks=[]
+        for dict in res.json():
+                qr=dict["qr_hash"]
+                link=f"https://poap.xyz/claim/{qr}"
+                claimlinks.append(link)
         status=1
     else:
         status=0
-    return status
+    print(claimlinks)
+    return status,claimlinks
+
+
+
+
 
 if __name__ == "__main__":
-    mintlinkgeneration(200582,234789)
+    mintlinkgeneration(203164,"024680")

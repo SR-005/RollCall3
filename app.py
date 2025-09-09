@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template,session
 import os
 from datetime import datetime
 from apihandler import main as apifunction
@@ -68,6 +68,7 @@ def vevent():
     filepath=None
     alerts2=None
     iconalert=None
+    verifiedmails=None
     
     if request.method=="POST":
         eventname = request.form.get("eventname")
@@ -133,7 +134,8 @@ def vevent():
         print("Virtual Event:", virtualevent)
         print("Filepath: ",filepath)
         if filepath!=None:
-            reportfunction(filepath)
+            eventname,startdate,enddate,verifiedmails=reportfunction(filepath)
+            session["verifiedmails"] = verifiedmails
         eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
         
     return render_template("index.html",alerts2=alerts2,iconalert=iconalert,fileindicator=True,eventid=eventid,secretcode=secretcode)
@@ -231,14 +233,26 @@ def search():
     eventid=None
     secretcode=None
     status=None
+    claimlinks=None
     
     if request.method=="POST":
         eventid=request.form.get("eventid")
         secretcode=request.form.get("secretcode")
-        status=mintlinkgeneration(eventid,secretcode)
+        status,claimlinks=mintlinkgeneration(eventid,secretcode)
+        session["claimlinks"]=claimlinks
 
     return render_template("index.html",status=status)
 
+@app.route("/sendlinks",methods=["GET", "POST"])
+def sendlinks():
+    verifiedmails=None
 
+    if request.method=="POST":
+        verifiedmails=session.get("verifiedmails", [])
+        claimlinks=session.get("claimlinks", [])
+        print(verifiedmails)
+        print(claimlinks)
+
+    render_template("index.html")
 if __name__=="__main__":
     app.run(debug=True)
