@@ -129,8 +129,5 @@ def mintlinkgeneration(eventid,secretcode):
     return status,claimlinks
 
 
-
-
-
 if __name__ == "__main__":
-    mintlinkgeneration(203164,"024680")
+    mintlinkgeneration(0,0)

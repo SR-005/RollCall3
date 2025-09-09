@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template,session
 import os
+import json
 from datetime import datetime
+from dotenv import load_dotenv
 from apihandler import main as apifunction
 from apihandler import mintlinkgeneration as mintlinkgeneration
 from reporthandler import main as reportfunction
@@ -8,6 +10,8 @@ from reporthandler import main as reportfunction
 
 app=Flask(__name__)
 app.config["UPLOADFOLDER"]="uploads"
+load_dotenv()
+app.secret_key = os.getenv("SESSION_SECRET", os.urandom(24))
 
 #Main Home Page
 @app.route("/")
@@ -38,7 +42,8 @@ def vcsv():
                 alerts1=True
                 fileindicator=True
                 return render_template("index.html", alerts1=alerts1,fileindicator=fileindicator)
-        eventname,startdate,enddate=reportfunction(filepath)    #csv handling function call
+        eventname,startdate,enddate,verifiedmails=reportfunction(filepath)    #csv handling function call
+        session["verifiedmails"] = verifiedmails
 
         #converting Start Date and End Date to formats HTML Autofill Values
         if isinstance(startdate, datetime):
@@ -134,10 +139,13 @@ def vevent():
         print("Virtual Event:", virtualevent)
         print("Filepath: ",filepath)
         if filepath!=None:
-            eventname,startdate,enddate,verifiedmails=reportfunction(filepath)
+            eventname2,startdate,enddate,verifiedmails=reportfunction(filepath)
             session["verifiedmails"] = verifiedmails
+
         eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
-        
+        with open(f"uploads/{eventid}_verified.json", "w") as f:
+            json.dump(verifiedmails, f)
+
     return render_template("index.html",alerts2=alerts2,iconalert=iconalert,fileindicator=True,eventid=eventid,secretcode=secretcode)
 
 #Function for External Events Page
@@ -219,8 +227,11 @@ def externalevent():
         print("Private Event:", privateevent)
         print("Virtual Event:", virtualevent)
         print("Filepath: ",filepath)
-        reportfunction(filepath)
+        eventname2,startdate,enddate,verifiedmails=reportfunction(filepath)
         eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
+        verifiedmails=session.get("verifiedmails", [])
+        with open(f"uploads/{eventid}_verified.json", "w") as f:
+            json.dump(verifiedmails, f)
 
     return render_template("externalevent.html",alerts3=alerts3,eventid=eventid,secretcode=secretcode)
 
@@ -240,6 +251,7 @@ def search():
         secretcode=request.form.get("secretcode")
         status,claimlinks=mintlinkgeneration(eventid,secretcode)
         session["claimlinks"]=claimlinks
+        session["eventid"]=eventid
 
     return render_template("index.html",status=status)
 
@@ -250,9 +262,19 @@ def sendlinks():
     if request.method=="POST":
         verifiedmails=session.get("verifiedmails", [])
         claimlinks=session.get("claimlinks", [])
-        print(verifiedmails)
-        print(claimlinks)
 
-    render_template("index.html")
+        eventid = session.get("eventid")
+        print(eventid)
+        if (not verifiedmails) and eventid:
+            try:
+                with open(f"uploads/{eventid}_verified.json") as f:
+                    verifiedmails = json.load(f)
+            except FileNotFoundError:
+                verifiedmails = []
+
+        print("Mails:", verifiedmails)
+        print("Links",claimlinks)
+
+    return render_template("index.html")
 if __name__=="__main__":
     app.run(debug=True)

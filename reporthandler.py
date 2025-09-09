@@ -21,7 +21,7 @@ def main(filepath):
     #calculating minimum presence time
     minimumtime=dfmain.loc[0, "Session Duration"]
     minimumtime=round((minimumtime/100)*75) #75% attendence given
-    '''print("Minimum Time of Presence in Event",minimumtime)'''
+    print("Minimum Time of Presence in Event",minimumtime)
 
     #Getting Topic ,Start Date and End Date
     eventname=dfmain.loc[0, "Topic"]
