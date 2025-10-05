@@ -38,10 +38,13 @@ def main(filepath):
     presentusermails = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()    #made the emails of present students into a list
     presentusers = dfmain[dfmain["Status"] == "Present"]["Participant Name"].tolist()
 
+    for i in presentusers:
+        count=count+1
+
     verifiedmails=dict(zip(presentusers,presentusermails))  #converting to dictionary
     print(verifiedmails)
 
-    return eventname,startdate,enddate,verifiedmails
+    return eventname,startdate,enddate,verifiedmails,count
 
 if __name__ == "__main__":
     main("sample.csv") 

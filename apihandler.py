@@ -11,7 +11,7 @@ CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
 
-def main(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent):
+def main(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent,totalemails):
     print("Event Name:", eventname)
     print("Description:", description)
     print("Icon Path: ",iconpath)
@@ -73,7 +73,7 @@ def main(eventname,description,iconpath,city,country,startdate,enddate,expirydat
     response = requests.get(url, headers=headers)
     if response.status_code==200:
         print("Event Creation Verified Succesfully")
-        sendmail(email,eventid,secretcode)
+        sendmail(email,eventid,secretcode,totalemails)
     else:
         print(response.text)
 

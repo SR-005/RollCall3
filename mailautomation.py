@@ -3,7 +3,7 @@ from flask_mail import Mail, Message
 import os
 
 app = Flask(__name__)
-def main(email,eventid,secretcode):
+def main(email,eventid,secretcode,totalemails):
     app.config['MAIL_SERVER'] = 'smtp.gmail.com' 
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
@@ -22,6 +22,8 @@ def main(email,eventid,secretcode):
 
             Event ID: {eventid}
             Secret Code: {secretcode}
+
+            NOTE: Number of Mint Links to be Requested: {totalemails}
 
             👉 You can check your event status directly on RollCall3 by entering these details.
 

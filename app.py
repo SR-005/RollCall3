@@ -76,6 +76,7 @@ def vevent():
     alerts2=None
     iconalert=None
     verifiedmails=None
+    totalemails=None
     
     if request.method=="POST":
         eventname = request.form.get("eventname")
@@ -143,10 +144,11 @@ def vevent():
         print("Virtual Event:", virtualevent)
         print("Filepath: ",filepath)
         if filepath!=None:
-            eventname2,startdate,enddate,verifiedmails=reportfunction(filepath)
+            eventname2,startdate,enddate,verifiedmails,totalemails=reportfunction(filepath)
             session["verifiedmails"] = verifiedmails
+        verifiedmails=session.get("verifiedmails", [])
 
-        eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
+        eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent,totalemails)
         with open(f"uploads/{eventid}_verified.json", "w") as f:
             json.dump(verifiedmails, f)
 
