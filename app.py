@@ -28,6 +28,7 @@ def vcsv():
     eventname=None
     startdate=None
     enddate=None
+    totalemails=None
     if request.method=="POST":
         zoomreport = request.files.get("zoomreport")
 
@@ -43,9 +44,11 @@ def vcsv():
                 alerts1=True
                 fileindicator=True
                 return render_template("index.html", alerts1=alerts1,fileindicator=fileindicator)
-        eventname,startdate,enddate,verifiedmails=reportfunction(filepath)    #csv handling function call
+        eventname,startdate,enddate,verifiedmails,totalemails=reportfunction(filepath)    #csv handling function call
         session["verifiedmails"] = verifiedmails
         session["eventname"] = eventname
+        session["totalemails"] = totalemails
+
 
         #converting Start Date and End Date to formats HTML Autofill Values
         if isinstance(startdate, datetime):
@@ -148,6 +151,8 @@ def vevent():
             session["verifiedmails"] = verifiedmails
         verifiedmails=session.get("verifiedmails", [])
 
+
+        totalemails=session.get("totalemails")
         eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent,totalemails)
         with open(f"uploads/{eventid}_verified.json", "w") as f:
             json.dump(verifiedmails, f)

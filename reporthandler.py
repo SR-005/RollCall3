@@ -38,6 +38,7 @@ def main(filepath):
     presentusermails = dfmain[dfmain["Status"] == "Present"]["User Email"].tolist()    #made the emails of present students into a list
     presentusers = dfmain[dfmain["Status"] == "Present"]["Participant Name"].tolist()
 
+    count=0
     for i in presentusers:
         count=count+1
 
