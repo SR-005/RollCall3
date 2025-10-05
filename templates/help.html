@@ -3,107 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rekord Help</title>
+  <title>RollCall3 Help</title>
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .step-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .step-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .step-icon {
-      font-size: 2rem;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='help.css') }}" />
 </head>
-<body class="bg-light">
+<body>
 
   <div class="container py-5">
-    <h1 class="text-center mb-4">📘 RollCall3 – Help & Instructions</h1>
-    <p class="text-center text-muted mb-5">
-      Follow these steps to create events, verify attendance, and request POAP mint links.
-    </p>
+    <div class="content-section">
+      <h1 class="text-center mb-4"> RollCall3 – Help</h1>
+      <p class="text-center text-muted mb-5">
+        Need help getting your event POAPs up and running? Don’t worry — this quick guide walks you through the whole process from event creation to sharing badges.
+      </p>
 
-    <div class="row g-4">
+      <h2><span class="emoji"></span> What is POAP</h2>
+      <p>
+        <strong>POAP</strong> stands for <strong>Proof of Attendance Protocol</strong>.
+      </p>
+      <p>
+        It’s basically a digital badge you get to prove you attended an event — kind of like a souvenir sticker, but on the internet.
+      </p>
+      <p>
+        Each POAP is a small collectible token stored on the blockchain. Event organizers create these badges, and attendees can claim them through special links or QR codes. They don’t cost anything, and you don’t need to know crypto to use them — you can collect them just with an email address.
+      </p>
+      <p>
+        People use POAPs to show off what events they’ve been part of, build a record of their experiences, or even unlock community rewards later on. Think of it as a digital memory that says, “Yes, I was there!”
+      </p>
 
-      <!-- Step 1 -->
-      <div class="col-md-6">
-        <div class="card step-card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <div class="step-icon mb-3">📝</div>
-            <h5 class="card-title">Step 1: Create Event</h5>
-            <p class="card-text">
-              Fill in event details (name, description, city, country, dates, email, and secret code).  
-              Upload an event icon (PNG/JPG) to represent your POAP.
-            </p>
-          </div>
-        </div>
+
+      <h2><span class="emoji"></span> Step 1: Create Your Event</h2>
+      <p>
+        Start by entering your event details — things like the <strong>event name</strong>, <strong>description</strong>, <strong>city</strong>, <strong>country</strong>, and <strong>date range</strong>.  
+        You’ll also need to add your <strong>email</strong> (for updates) and a <strong>secret code</strong> (used for POAP verification).  
+        Upload a clear and fun <strong>event icon</strong> (PNG or JPG) — this will be your event’s face when the badge is minted.
+      </p>
+      <p class="text-muted">
+        💡 Tip: The event icon works best as a square image (around 500x500px) with no text on it.
+      </p>
+
+      <h2><span class="emoji"></span> Step 2: Upload Your Attendance Report</h2>
+      <p>
+        Next, upload your attendance data — this could be a <strong>Zoom attendance CSV</strong>, <strong>Google Sheet export</strong>, or any similar file.  
+        RollCall3 automatically processes the list to verify each participant who attended your event.
+      </p>
+
+      <h2><span class="emoji"></span> Step 3: Verify the Event</h2>
+      <p>
+        Once you submit the event details, RollCall3 will talk to the <strong>POAP API</strong> to confirm the event creation.  
+        You’ll then get two important pieces of information:
+      </p>
+      <ul>
+        <li><span class="highlight">Event ID</span> – your event’s unique identifier on POAP</li>
+        <li><span class="highlight">Secret Code</span> – required to request mint links later</li>
+      </ul>
+      <p class="text-muted">
+        ⚠️ Keep these safe — you'll need them when generating mint links or checking event status.
+      </p>
+
+      <h2><span class="emoji"></span> Step 4: Request Mint Links</h2>
+      <p>
+        After the event is verified, head over to the  
+        <a href="https://drops.poap.xyz" target="_blank">POAP Drop Dashboard</a>.  
+        There, import your <strong>Event ID</strong> and <strong>Secret Code</strong> to request mint links.  
+        Once approved by the POAP team, you’ll receive a set of mint links that can be distributed to your attendees.
+      </p>
+      <p class="text-muted">
+         Think of these links as your digital tickets — each one is unique to a participant.
+      </p>
+
+      <h2><span class="emoji"></span> Step 5: Share the POAPs</h2>
+      <p>
+        Once you get your approved mint links, RollCall3 will automatically email them to verified attendees.
+      </p>
+      <p>
+        That’s it — your attendees can now claim their well-earned POAP badges!
+      </p>
+
+      <div class="text-center mt-5">
+        <a href="/" class="btn btn-primary btn-lg px-4">Back to Home</a>
       </div>
-
-      <!-- Step 2 -->
-      <div class="col-md-6">
-        <div class="card step-card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <div class="step-icon mb-3">📂</div>
-            <h5 class="card-title">Step 2: Upload Attendance Report</h5>
-            <p class="card-text">
-              Upload the Zoom/CSV/XLS report with attendee data.  
-              RollCall3 will automatically verify participant attendance.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="col-md-6">
-        <div class="card step-card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <div class="step-icon mb-3">✅</div>
-            <h5 class="card-title">Step 3: Verify Event</h5>
-            <p class="card-text">
-              RollCall3 will confirm the event creation through POAP API.  
-              You will see your <strong>Event ID</strong> and <strong>Secret Code</strong>.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 4 -->
-      <div class="col-md-6">
-        <div class="card step-card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <div class="step-icon mb-3">🚀</div>
-            <h5 class="card-title">Step 4: Request Mint Links</h5>
-            <p class="card-text">
-              Go to the <a href="https://drops.poap.xyz" target="_blank">POAP Dashboard</a>  
-              and import your Event ID + Secret Code to request mint links.  
-              Once approved, links can be distributed to students.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 5 -->
-      <div class="col-md-12">
-        <div class="card step-card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <div class="step-icon mb-3">📩</div>
-            <h5 class="card-title">Step 5: Share POAPs</h5>
-            <p class="card-text">
-              After approval, RollCall3 can send mint links to students automatically via email  
-              or display them as QR codes in the dashboard.
-            </p>
-          </div>
-        </div>
-      </div>
-
     </div>
 
-    <!-- Back Button -->
-    <div class="text-center mt-5">
-      <a href="/" class="btn btn-primary btn-lg">⬅ Back to Home</a>
+    <div class="footer">
+      RollCall3 © 2025 · Built to make attendance rewarding 
     </div>
   </div>
 
