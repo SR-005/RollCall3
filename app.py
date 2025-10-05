@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from apihandler import main as apifunction
 from apihandler import mintlinkgeneration as mintlinkgeneration
 from reporthandler import main as reportfunction
+from mailautomation import sendmails
 
 
 app=Flask(__name__)
@@ -44,6 +45,7 @@ def vcsv():
                 return render_template("index.html", alerts1=alerts1,fileindicator=fileindicator)
         eventname,startdate,enddate,verifiedmails=reportfunction(filepath)    #csv handling function call
         session["verifiedmails"] = verifiedmails
+        session["eventname"] = eventname
 
         #converting Start Date and End Date to formats HTML Autofill Values
         if isinstance(startdate, datetime):
@@ -88,6 +90,8 @@ def vevent():
         email = request.form.get("email")
         privateevent=request.form.get("privateevent")
         virtualevent=request.form.get("virtualevent")
+
+        session["eventname"] = eventname
 
         if icon and icon.filename!="":
             iconname=icon.filename.lower()
@@ -182,6 +186,8 @@ def externalevent():
         privateevent=request.form.get("privateevent")
         virtualevent=request.form.get("virtualevent")
 
+        session["eventname"] = eventname
+
         if icon and icon.filename!="":
             iconname=icon.filename.lower()
             if iconname.endswith((".jpg", ".png")):
@@ -202,7 +208,6 @@ def externalevent():
             privateevent="false"
         if virtualevent==None:
             virtualevent="false"
-
 
         zoomreport = request.files.get("zoomreport2")
         if zoomreport and zoomreport.filename != "":
@@ -227,6 +232,7 @@ def externalevent():
         print("Private Event:", privateevent)
         print("Virtual Event:", virtualevent)
         print("Filepath: ",filepath)
+
         eventname2,startdate,enddate,verifiedmails=reportfunction(filepath)
         eventid,secretcode=apifunction(eventname,description,iconpath,city,country,startdate,enddate,expirydate,secretcode,email,privateevent,virtualevent)
         verifiedmails=session.get("verifiedmails", [])
@@ -262,6 +268,7 @@ def sendlinks():
     if request.method=="POST":
         verifiedmails=session.get("verifiedmails", [])
         claimlinks=session.get("claimlinks", [])
+        eventname=session.get("eventname")
 
         eventid = session.get("eventid")
         print(eventid)
@@ -274,7 +281,9 @@ def sendlinks():
 
         print("Mails:", verifiedmails)
         print("Links",claimlinks)
-
+        sendmails(verifiedmails,claimlinks,eventname)
     return render_template("index.html")
+
+
 if __name__=="__main__":
     app.run(debug=True)
