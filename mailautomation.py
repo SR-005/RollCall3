@@ -55,7 +55,7 @@ def sendmails(userdata,links,eventname):
         print(link)
         try:
             with app.app_context():
-                msg = Message("Your RollCall3 Event Details", recipients=email)
+                msg = Message("Your RollCall3 Event Details", recipients=[email])
                 msg.body = f"""
                 Hello {name},
 

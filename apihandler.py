@@ -116,6 +116,7 @@ def mintlinkgeneration(eventid,secretcode):
 
     res = requests.post(url, headers=headers, json=payload)
     print(res.status_code, res)
+    claimlinks=[]
     if res.status_code==200 and res.text!="[]":
         claimlinks=[]
         for dict in res.json():
